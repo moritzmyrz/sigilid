@@ -298,7 +298,7 @@ similar. The subpath ecosystem is where `sigilid` earns its place.
 
 `sigilid` uses `globalThis.crypto.getRandomValues`, which is available in:
 
-- Node.js 18+ (natively, no `require("crypto")` needed)
+- Node.js 20+ (stable, no flags required)
 - All modern browsers
 - Edge runtimes: Cloudflare Workers, Vercel Edge, Deno, Bun
 

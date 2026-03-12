@@ -1,7 +1,8 @@
 // Returns a Uint8Array of `count` cryptographically secure random bytes.
-// Works in Node 18+, all modern browsers, and edge runtimes that expose `crypto`.
+// Uses globalThis.crypto (Web Crypto API) — available in Node 18.17+,
+// all modern browsers, Cloudflare Workers, Deno, and Bun.
 export function randomBytes(count: number): Uint8Array {
   const bytes = new Uint8Array(count);
-  crypto.getRandomValues(bytes);
+  globalThis.crypto.getRandomValues(bytes);
   return bytes;
 }
