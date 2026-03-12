@@ -43,7 +43,7 @@ pnpm add sigilid
 yarn add sigilid
 ```
 
-Node 18+ required. Works in all modern runtimes that expose the Web Crypto API (`globalThis.crypto`).
+Node 20+ required. Works in all modern runtimes that expose the Web Crypto API (`globalThis.crypto`).
 
 ---
 

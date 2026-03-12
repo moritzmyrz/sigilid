@@ -37,7 +37,7 @@ Things that are unlikely to be accepted:
 
 ## Local setup
 
-You will need Node.js 18 or later and npm 9 or later.
+You will need Node.js 20 or later and npm 9 or later.
 
 ```bash
 git clone https://github.com/moritzmyrz/sigilid.git
@@ -144,6 +144,7 @@ Open a GitHub issue first. Describe:
 - Whether it requires any new dependencies
 
 New subpath exports also require updates to:
+
 - `packages/sigilid/package.json` (exports map)
 - `packages/sigilid/tsup.config.ts` (build entry)
 - `README.md` (API docs)
