@@ -13,7 +13,7 @@ import { generateId } from "sigilid";
 generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
 ```
 
-For full documentation, see the [repository README](https://github.com/sigilid/sigilid#readme).
+For full documentation, see the [repository README](https://github.com/moritzmyrz/sigilid#readme).
 
 ## Install
 
@@ -23,14 +23,14 @@ npm install sigilid
 
 ## Subpath exports
 
-| Import | Description |
-|---|---|
-| `sigilid` | Secure random ID generator |
+| Import               | Description                 |
+| -------------------- | --------------------------- |
+| `sigilid`            | Secure random ID generator  |
 | `sigilid/non-secure` | Math.random-based generator |
-| `sigilid/prefix` | Prefixed IDs (`usr_abc123`) |
-| `sigilid/typed` | Branded TypeScript ID types |
-| `sigilid/validate` | Validation helpers |
-| `sigilid/alphabet` | Custom alphabet factory |
+| `sigilid/prefix`     | Prefixed IDs (`usr_abc123`) |
+| `sigilid/typed`      | Branded TypeScript ID types |
+| `sigilid/validate`   | Validation helpers          |
+| `sigilid/alphabet`   | Custom alphabet factory     |
 
 ## License
 
