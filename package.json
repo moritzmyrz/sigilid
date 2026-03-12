@@ -1,0 +1,21 @@
+{
+  "name": "sigilid-monorepo",
+  "private": true,
+  "workspaces": ["packages/*", "apps/*", "benchmarks/*"],
+  "scripts": {
+    "build": "npm run build --workspace=packages/sigilid",
+    "test": "npm run test --workspace=packages/sigilid",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --build packages/sigilid/tsconfig.json",
+    "clean": "npm run clean --workspace=packages/sigilid"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "name": "sigilid",
+  "version": "0.1.0",
+  "description": "A tiny, tree-shakeable ID toolkit for TypeScript apps. Secure core with optional subpath exports for prefixed IDs, typed IDs, validation, and custom alphabets.",
+  "license": "MIT",
+  "author": "moritzmyrz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moritzmyrz/sigilid.git",
+    "directory": "packages/sigilid"
+  },
+  "homepage": "https://github.com/moritzmyrz/sigilid#readme",
+  "bugs": {
+    "url": "https://github.com/moritzmyrz/sigilid/issues"
+  },
+  "keywords": [
+    "id",
+    "uid",
+    "uuid",
+    "nanoid",
+    "generate",
+    "typescript",
+    "secure",
+    "random",
+    "prefixed-id",
+    "typed-id",
+    "url-safe",
+    "tree-shakeable",
+    "esm"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./non-secure": {
+      "types": "./dist/non-secure.d.ts",
+      "import": "./dist/non-secure.js",
+      "require": "./dist/non-secure.cjs"
+    },
+    "./prefix": {
+      "types": "./dist/prefix.d.ts",
+      "import": "./dist/prefix.js",
+      "require": "./dist/prefix.cjs"
+    },
+    "./typed": {
+      "types": "./dist/typed.d.ts",
+      "import": "./dist/typed.js",
+      "require": "./dist/typed.cjs"
+    },
+    "./validate": {
+      "types": "./dist/validate.d.ts",
+      "import": "./dist/validate.js",
+      "require": "./dist/validate.cjs"
+    },
+    "./alphabet": {
+      "types": "./dist/alphabet.d.ts",
+      "import": "./dist/alphabet.js",
+      "require": "./dist/alphabet.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "*",
+    "tsup": "^8.3.5",
+    "typescript": "*",
+    "vitest": "^3.0.7"
+  }
+}
