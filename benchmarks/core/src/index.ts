@@ -40,9 +40,9 @@ await bench.run();
 console.table(
   bench.tasks.map((task) => ({
     name: task.name,
-    "ops/sec": task.result?.hz?.toFixed(0) ?? "N/A",
-    "avg (ns)": ((task.result?.mean ?? 0) * 1e6).toFixed(2),
-    p99: ((task.result?.p99 ?? 0) * 1e6).toFixed(2),
+    "ops/sec": task.result?.throughput.mean.toFixed(0) ?? "N/A",
+    "avg (ns)": ((task.result?.latency.mean ?? 0) * 1e6).toFixed(2),
+    p99: ((task.result?.latency.p99 ?? 0) * 1e6).toFixed(2),
     samples: task.result?.samples.length ?? 0,
   })),
 );
