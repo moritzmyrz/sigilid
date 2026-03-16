@@ -33,7 +33,9 @@ export function isValidId(value: string, options: ValidationOptions = {}): boole
  */
 export function assertValidId(value: string, options: ValidationOptions = {}): void {
   if (!isValidId(value, options)) {
-    throw new TypeError(`Invalid ID: "${value}"`);
+    // Truncate to avoid leaking potentially sensitive values into logs.
+    const preview = value.length > 8 ? `${value.slice(0, 8)}…` : value;
+    throw new TypeError(`Invalid ID: "${preview}"`);
   }
 }
 
