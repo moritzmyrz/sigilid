@@ -9,7 +9,10 @@
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "typecheck": "tsc --build packages/sigilid/tsconfig.json",
-    "clean": "npm run clean --workspace=packages/sigilid"
+    "clean": "npm run clean --workspace=packages/sigilid",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "playground": "npm run start --workspace=apps/playground",
+    "bench": "npm run bench --workspace=benchmarks/core"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
