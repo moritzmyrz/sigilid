@@ -1,4 +1,4 @@
-import { DEFAULT_ALPHABET } from "./index.js";
+import { DEFAULT_ALPHABET } from "./internal/constants.js";
 import type { ValidationOptions } from "./internal/validation.js";
 import { isValidIdValue } from "./internal/validation.js";
 

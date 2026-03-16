@@ -1,5 +1,5 @@
-import { DEFAULT_ALPHABET } from "./index.js";
 import { assertLength } from "./internal/assert.js";
+import { DEFAULT_ALPHABET } from "./internal/constants.js";
 
 const DEFAULT_LENGTH = 21;
 
