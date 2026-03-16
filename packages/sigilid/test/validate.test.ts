@@ -49,6 +49,10 @@ describe("isValidId", () => {
   it("returns false for prefix option with empty ID portion", () => {
     expect(isValidId("usr_", { prefix: "usr" })).toBe(false);
   });
+
+  it("throws TypeError when alphabet option is an empty string", () => {
+    expect(() => isValidId("abc", { alphabet: "" })).toThrow(TypeError);
+  });
 });
 
 describe("assertValidId", () => {
