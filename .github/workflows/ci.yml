@@ -44,11 +44,11 @@ jobs:
 
       - name: Pack smoke test
         run: |
-          npm pack --workspace=packages/sigilid --pack-destination /tmp/sigilid-pack
-          mkdir /tmp/smoke-test
+          mkdir -p /tmp/smoke-test
+          cd packages/sigilid && npm pack --pack-destination /tmp/smoke-test && cd -
           cd /tmp/smoke-test
           npm init -y > /dev/null
-          npm install /tmp/sigilid-pack/sigilid-*.tgz > /dev/null
+          npm install ./sigilid-*.tgz > /dev/null
           node --input-type=module -e "
             import { generateId } from 'sigilid';
             import { generatePrefixedId } from 'sigilid/prefix';
