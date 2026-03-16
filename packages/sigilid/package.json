@@ -1,6 +1,6 @@
 {
   "name": "sigilid",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A tiny, tree-shakeable ID toolkit for TypeScript apps. Secure core with optional subpath exports for prefixed IDs, typed IDs, validation, and custom alphabets.",
   "license": "MIT",
   "author": "moritzmyrz",
@@ -69,7 +69,11 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
