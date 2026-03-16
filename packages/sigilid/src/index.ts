@@ -1,12 +1,9 @@
 import { generateFromAlphabet } from "./internal/alphabet.js";
 import { assertLength } from "./internal/assert.js";
+import { DEFAULT_ALPHABET } from "./internal/constants.js";
 import { randomBytes } from "./internal/random.js";
 
-/**
- * URL-safe alphabet used by default. 64 characters: A-Z, a-z, 0-9, _, -.
- * Chosen to be safe in URLs, filenames, and most log formats without encoding.
- */
-export const DEFAULT_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
+export { DEFAULT_ALPHABET };
 
 const DEFAULT_LENGTH = 21;
 

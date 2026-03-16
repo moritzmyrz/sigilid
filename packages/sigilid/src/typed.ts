@@ -1,6 +1,6 @@
-import { DEFAULT_ALPHABET } from "./index.js";
 import { generateFromAlphabet } from "./internal/alphabet.js";
 import { assertLength, assertPrefix } from "./internal/assert.js";
+import { DEFAULT_ALPHABET } from "./internal/constants.js";
 import { randomBytes } from "./internal/random.js";
 
 const DEFAULT_LENGTH = 21;
