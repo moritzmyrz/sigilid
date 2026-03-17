@@ -13,6 +13,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
+  minify: true,
   splitting: false,
   treeshake: true,
   // Each entrypoint should be a standalone bundle with no cross-entrypoint

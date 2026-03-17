@@ -1,27 +1,8 @@
-const MIN_ALPHABET_SIZE = 2;
-const MAX_ALPHABET_SIZE = 256;
-
 export function validateAlphabetString(alphabet: string): void {
-  if (typeof alphabet !== "string") {
-    throw new TypeError("Alphabet must be a string");
-  }
-  if (alphabet.length < MIN_ALPHABET_SIZE) {
-    throw new RangeError(
-      `Alphabet must have at least ${MIN_ALPHABET_SIZE} characters, got ${alphabet.length}`,
-    );
-  }
-  if (alphabet.length > MAX_ALPHABET_SIZE) {
-    throw new RangeError(
-      `Alphabet must have at most ${MAX_ALPHABET_SIZE} characters, got ${alphabet.length}`,
-    );
-  }
-  const seen = new Set<string>();
-  for (const char of alphabet) {
-    if (seen.has(char)) {
-      throw new TypeError(`Alphabet contains duplicate character: "${char}"`);
-    }
-    seen.add(char);
-  }
+  if (typeof alphabet !== "string") throw new TypeError("alphabet must be a string");
+  if (alphabet.length < 2) throw new RangeError(`alphabet must have at least 2 characters`);
+  if (alphabet.length > 256) throw new RangeError(`alphabet must have at most 256 characters`);
+  if (new Set(alphabet).size !== alphabet.length) throw new TypeError("alphabet has duplicate characters");
 }
 
 /**

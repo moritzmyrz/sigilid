@@ -81,12 +81,12 @@
     "clean": "rm -rf dist *.tsbuildinfo"
   },
   "size-limit": [
-    { "path": "dist/index.js", "limit": "550 B" },
-    { "path": "dist/non-secure.js", "limit": "350 B" },
-    { "path": "dist/prefix.js", "limit": "700 B" },
-    { "path": "dist/typed.js", "limit": "700 B" },
-    { "path": "dist/validate.js", "limit": "500 B" },
-    { "path": "dist/alphabet.js", "limit": "650 B" }
+    { "path": "dist/index.js", "brotli": true, "limit": "350 B" },
+    { "path": "dist/non-secure.js", "brotli": true, "limit": "250 B" },
+    { "path": "dist/prefix.js", "brotli": true, "limit": "500 B" },
+    { "path": "dist/typed.js", "brotli": true, "limit": "500 B" },
+    { "path": "dist/validate.js", "brotli": true, "limit": "400 B" },
+    { "path": "dist/alphabet.js", "brotli": true, "limit": "400 B" }
   ],
   "devDependencies": {
     "@biomejs/biome": "*",
