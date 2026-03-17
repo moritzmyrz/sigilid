@@ -80,9 +80,19 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist *.tsbuildinfo"
   },
+  "size-limit": [
+    { "path": "dist/index.js", "limit": "550 B" },
+    { "path": "dist/non-secure.js", "limit": "350 B" },
+    { "path": "dist/prefix.js", "limit": "700 B" },
+    { "path": "dist/typed.js", "limit": "700 B" },
+    { "path": "dist/validate.js", "limit": "500 B" },
+    { "path": "dist/alphabet.js", "limit": "650 B" }
+  ],
   "devDependencies": {
     "@biomejs/biome": "*",
+    "@size-limit/preset-small-lib": "^12.0.1",
     "@vitest/coverage-v8": "^3.0.7",
+    "size-limit": "^12.0.1",
     "tsup": "^8.3.5",
     "typescript": "*",
     "vitest": "^3.0.7"
