@@ -1,10 +1,20 @@
 import { DEFAULT_ALPHABET } from "./constants.js";
 
-// Specialized fast path for DEFAULT_ALPHABET (64 chars, power of 2).
-// mask is always 63, so byte & 63 is always in range — no rejection sampling needed.
+const POOL_SIZE = 1024;
+const pool = new Uint8Array(POOL_SIZE);
+const chars = DEFAULT_ALPHABET;
+let poolOffset = POOL_SIZE;
+
 export function generateDefault(length: number): string {
-  return Array.from(
-    crypto.getRandomValues(new Uint8Array(length)),
-    (b) => DEFAULT_ALPHABET[b & 63] as string,
-  ).join("");
+  if (poolOffset + length > POOL_SIZE) {
+    crypto.getRandomValues(pool);
+    poolOffset = 0;
+  }
+
+  let result = "";
+  const end = poolOffset + length;
+  while (poolOffset < end) {
+    result += chars[(pool[poolOffset++] as number) & 63] as string;
+  }
+  return result;
 }

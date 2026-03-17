@@ -38,10 +38,10 @@ one never pulls in the others.
 
 | Import               | Size   |
 | -------------------- | ------ |
-| `sigilid`            | ~234 B |
+| `sigilid`            | ~297 B |
 | `sigilid/non-secure` | ~214 B |
-| `sigilid/prefix`     | ~348 B |
-| `sigilid/typed`      | ~382 B |
+| `sigilid/prefix`     | ~385 B |
+| `sigilid/typed`      | ~398 B |
 | `sigilid/validate`   | ~360 B |
 | `sigilid/alphabet`   | ~380 B |
 
@@ -332,6 +332,48 @@ similar. The subpath ecosystem is where `sigilid` earns its place.
 
 If you are targeting an environment without Web Crypto, use `sigilid/non-secure`
 with the understanding that `Math.random` is not cryptographically safe.
+
+---
+
+## Benchmarking and comparisons
+
+There are two benchmark entrypoints:
+
+- `npm run bench` for internal `sigilid` functions only
+- `npm run bench:compare` for cross-library comparisons (`sigilid`, `nanoid`,
+  `uuid.v4`, `crypto.randomUUID`, `uid/secure`, `shortid`)
+
+The compare benchmark reports:
+
+- `ops/sec` for raw call throughput
+- `chars/sec` to normalize for libraries that produce longer/shorter IDs
+- latency stats and sample count
+
+### Local run
+
+```bash
+npm ci
+npm run build
+npm run bench:compare
+```
+
+Optional tuning:
+
+```bash
+BENCH_SECONDS=5 BENCH_WARMUP_SECONDS=2 npm run bench:compare
+```
+
+Results are written to `bench-results/compare-*.json`.
+
+### Reproducible run with fixed resources (Docker)
+
+```bash
+CPU_LIMIT=2 MEM_LIMIT=1g npm run bench:compare:docker
+```
+
+This pins each run to the same container CPU and memory budget so comparisons
+between runs are less noisy. For better consistency, run multiple passes and
+compare medians.
 
 ---
 
