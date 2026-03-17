@@ -6,6 +6,6 @@ export function generateDefault(length: number): string {
   const bytes = new Uint8Array(length);
   globalThis.crypto.getRandomValues(bytes);
   let id = "";
-  for (let i = 0; i < length; i++) id += DEFAULT_ALPHABET[bytes[i]! & 63];
+  for (let i = 0; i < length; i++) id += DEFAULT_ALPHABET[(bytes[i] as number) & 63];
   return id;
 }
