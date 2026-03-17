@@ -98,7 +98,7 @@ jobs:
         run: npm ci
 
       - name: Download prebuild artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: native-prebuilds-*
           path: packages/native-addon/prebuilds
