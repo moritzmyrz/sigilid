@@ -1,0 +1,22 @@
+{
+  "name": "@sigilid/native-addon",
+  "version": "0.1.0",
+  "description": "Node-API native addon for sigilid/native",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "./index.js",
+  "files": ["index.js", "binding.gyp", "src", "build/Release/*.node", "prebuilds/**/*.node"],
+  "gypfile": true,
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "install": "node-gyp-build || node-gyp rebuild",
+    "prebuild": "prebuildify --napi --strip"
+  },
+  "dependencies": {
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
+  },
+  "devDependencies": {
+    "prebuildify": "^6.0.1"
+  }
+}
