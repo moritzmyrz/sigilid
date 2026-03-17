@@ -5,12 +5,16 @@
   "license": "MIT",
   "type": "commonjs",
   "main": "./index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["index.js", "binding.gyp", "src", "build/Release/*.node", "prebuilds/**/*.node"],
   "gypfile": true,
   "scripts": {
     "build": "node-gyp rebuild",
     "install": "node-gyp-build || node-gyp rebuild",
-    "prebuild": "prebuildify --napi --strip"
+    "prebuild": "prebuildify --napi --strip",
+    "prepack": "npm run prebuild"
   },
   "dependencies": {
     "node-addon-api": "^8.3.1",

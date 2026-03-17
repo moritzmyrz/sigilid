@@ -46,21 +46,25 @@ jobs:
         run: |
           mkdir -p /tmp/smoke-test
           npm pack --pack-destination /tmp/smoke-test
+          npm pack ./packages/native-addon --pack-destination /tmp/smoke-test
           cd /tmp/smoke-test
           npm init -y > /dev/null
           npm install ./sigilid-*.tgz > /dev/null
+          npm install ./sigilid-native-addon-*.tgz > /dev/null
           node --input-type=module -e "
             import { generateId } from 'sigilid';
             import { generatePrefixedId } from 'sigilid/prefix';
             import { createTypedGenerator } from 'sigilid/typed';
             import { isValidId } from 'sigilid/validate';
             import { createAlphabet } from 'sigilid/alphabet';
+            import { generateDefault as generateNative } from 'sigilid/native';
             import { generateNonSecureId } from 'sigilid/non-secure';
             if (!generateId()) throw new Error('generateId failed');
             if (!generatePrefixedId('usr').startsWith('usr_')) throw new Error('prefix failed');
             if (!createTypedGenerator('usr')().startsWith('usr_')) throw new Error('typed failed');
             if (!isValidId(generateId())) throw new Error('isValidId failed');
             if (!createAlphabet('abc').generate()) throw new Error('alphabet failed');
+            if (generateNative(16).length !== 16) throw new Error('native failed');
             if (!generateNonSecureId()) throw new Error('non-secure failed');
             console.log('all subpath imports resolved and functional');
           "

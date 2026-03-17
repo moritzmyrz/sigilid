@@ -73,6 +73,8 @@
     "build": "tsup",
     "build:native-addon": "npm --prefix packages/native-addon run build",
     "prebuild:native-addon": "npm --prefix packages/native-addon run prebuild",
+    "release:check": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "release:pack": "npm pack && npm pack ./packages/native-addon",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
