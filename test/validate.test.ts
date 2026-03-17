@@ -65,6 +65,14 @@ describe("assertValidId", () => {
     expect(() => assertValidId("bad id!")).toThrow(TypeError);
   });
 
+  it("includes the full value in the error when it is 8 chars or shorter", () => {
+    expect(() => assertValidId("bad!")).toThrow('"bad!"');
+  });
+
+  it("truncates the value in the error when it is longer than 8 chars", () => {
+    expect(() => assertValidId("bad id!!!")).toThrow('"bad id!!…"');
+  });
+
   it("throws TypeError when prefix does not match", () => {
     expect(() => assertValidId("usr_abc", { prefix: "doc" })).toThrow(TypeError);
   });

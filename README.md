@@ -24,7 +24,7 @@ const id = generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
 - **URL-safe by default** — 64-character alphabet: `A-Z a-z 0-9 _ -`
 - **Tree-shakeable** — subpath exports mean your bundle only includes what you import
 - **Zero runtime dependencies** — no third-party code in production output
-- **ESM-first with CJS compatibility** — works in modern Node, edge runtimes, and all major bundlers
+- **ESM-only** — works in modern Node, edge runtimes, and all major bundlers
 - **Strong TypeScript support** — strict types, branded ID types, precise inference
 - **Predictable behavior** — explicit errors on invalid input, no silent failures
 - **One package, six entrypoints** — `install sigilid`, then import only what you need
@@ -45,7 +45,7 @@ one never pulls in the others.
 | `sigilid/validate`   | ~366 B |
 | `sigilid/alphabet`   | ~381 B |
 
-Zero runtime dependencies. [Verified by size-limit on every PR.](link to workflow)
+Zero runtime dependencies. [Verified by size-limit on every PR.](.github/workflows/size-limit.yml)
 
 ---
 
@@ -346,7 +346,7 @@ with the understanding that `Math.random` is not cryptographically safe.
 | `sigilid/validate`   | `dist/validate.js`   | Validation helpers                 |
 | `sigilid/alphabet`   | `dist/alphabet.js`   | Custom alphabet factory            |
 
-All exports are available as ESM (`.js`) and CommonJS (`.cjs`) with TypeScript declarations (`.d.ts`).
+All exports are ESM (`.js`) with TypeScript declarations (`.d.ts`). Node.js 20+ required.
 
 ---
 
@@ -363,8 +363,8 @@ decisions and constraints contributors should keep in mind.
 ## Release and versioning
 
 `sigilid` uses [Semantic Versioning](https://semver.org/). Breaking API changes
-will bump the major version. Releases are managed with
-[Changesets](https://github.com/changesets/changesets).
+will bump the major version. Releases are cut from GitHub — bump the version in
+`package.json`, tag the release, and the publish workflow handles the rest.
 
 ---
 
