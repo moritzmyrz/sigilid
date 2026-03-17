@@ -1,6 +1,6 @@
 {
   "name": "sigilid",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A tiny, tree-shakeable ID toolkit for TypeScript apps. Secure core with optional subpath exports for prefixed IDs, typed IDs, validation, and custom alphabets.",
   "license": "MIT",
   "author": "moritzmyrz",
@@ -60,7 +60,11 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -76,12 +80,36 @@
     "bench": "tsx tools/benchmark.ts"
   },
   "size-limit": [
-    { "path": "dist/index.js", "brotli": true, "limit": "265 B" },
-    { "path": "dist/non-secure.js", "brotli": true, "limit": "245 B" },
-    { "path": "dist/prefix.js", "brotli": true, "limit": "385 B" },
-    { "path": "dist/typed.js", "brotli": true, "limit": "420 B" },
-    { "path": "dist/validate.js", "brotli": true, "limit": "395 B" },
-    { "path": "dist/alphabet.js", "brotli": true, "limit": "415 B" }
+    {
+      "path": "dist/index.js",
+      "brotli": true,
+      "limit": "265 B"
+    },
+    {
+      "path": "dist/non-secure.js",
+      "brotli": true,
+      "limit": "245 B"
+    },
+    {
+      "path": "dist/prefix.js",
+      "brotli": true,
+      "limit": "385 B"
+    },
+    {
+      "path": "dist/typed.js",
+      "brotli": true,
+      "limit": "420 B"
+    },
+    {
+      "path": "dist/validate.js",
+      "brotli": true,
+      "limit": "395 B"
+    },
+    {
+      "path": "dist/alphabet.js",
+      "brotli": true,
+      "limit": "415 B"
+    }
   ],
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
