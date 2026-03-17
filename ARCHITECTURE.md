@@ -2,20 +2,20 @@
 
 This document covers the structural decisions behind `sigilid` and the constraints contributors should keep in mind.
 
-## Why a monorepo?
+## Why a single-package repo?
 
-The repository hosts one published package (`packages/sigilid`), a local playground app, and a benchmark workspace. A monorepo makes it natural to iterate across all of these together without the overhead of multiple repositories or published cross-dependencies.
-
-The root workspace is intentionally minimal: it holds shared tooling config (`tsconfig.base.json`, `biome.json`) and workspace-level scripts that delegate to the package.
+`sigilid` is intentionally maintained as a single package in a single repository.
+That keeps the contribution model simple: one `package.json`, one build config,
+one test suite, and one release flow.
 
 ## Why only one published package?
 
-`sigilid` v1 ships a single package with multiple subpath exports rather than splitting features into separate packages. This keeps installation simple (`npm install sigilid`) while still giving bundlers enough granularity to tree-shake aggressively. A monorepo with one published package is easier to maintain, version, and reason about than a multi-package setup at this stage.
+`sigilid` v1 ships a single package with multiple subpath exports rather than splitting features into separate packages. This keeps installation simple (`npm install sigilid`) while still giving bundlers enough granularity to tree-shake aggressively.
 
 ## Package structure
 
 ```
-packages/sigilid/src/
+src/
 ├── index.ts          ← root entrypoint, secure randomness only
 ├── non-secure.ts     ← Math.random-based generation
 ├── prefix.ts         ← prefixed ID helpers
@@ -59,10 +59,10 @@ Code under `src/internal/` is not part of the public API. It will never appear i
 
 tsup builds all entrypoints in a single pass. Each entrypoint produces:
 - `.js` (ESM)
-- `.cjs` (CommonJS)
-- `.d.ts` + `.d.ts.map` (TypeScript declarations)
+- `.d.ts` (TypeScript declarations)
 
-The `exports` field in `package.json` maps each subpath to the correct files for each module resolution condition. The `types` condition comes first so TypeScript resolution works correctly in both `bundler` and `node16` module modes.
+The `exports` field in `package.json` maps each subpath to the correct ESM file
+and declaration file. The package is ESM-only.
 
 ## Design constraints for contributors
 

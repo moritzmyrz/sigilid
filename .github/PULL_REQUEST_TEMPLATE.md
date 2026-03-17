@@ -13,7 +13,7 @@
 - [ ] `npm run typecheck` passes
 - [ ] `npm run lint` passes
 - [ ] `README.md` updated if the public API changed
-- [ ] Changeset file added (`npx changeset`) if this affects the published package
+- [ ] No changeset needed (project uses release tags/workflow)
 
 ## Notes for reviewer
 

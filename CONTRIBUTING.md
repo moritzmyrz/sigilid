@@ -70,36 +70,38 @@ Typecheck:
 npm run typecheck
 ```
 
-## Workspace overview
+## Repository overview
 
 ```
 sigilid/
-├── packages/sigilid/   ← the only published package
-├── apps/playground/    ← local integration demo (not published)
-├── benchmarks/core/    ← local benchmarks (not published)
+├── src/                ← library source
+├── test/               ← Vitest test suite
+├── tools/              ← local playground and benchmark scripts
+├── package.json        ← scripts, exports map, size-limit budgets
+└── tsup.config.ts      ← build entrypoint configuration
 ```
 
-Most contributions will touch only `packages/sigilid/`.
+Most contributions will touch `src/`, `test/`, `README.md`, and build config.
 
-The playground is useful for quickly verifying that imports work correctly after a change. Run it with:
+The playground is useful for quickly verifying usage patterns after a change. Run it with:
 
 ```bash
-cd apps/playground && npm run start
+npm run playground
 ```
 
 ## Coding standards
 
-- TypeScript throughout. No plain JS files in `packages/sigilid/src/`.
+- TypeScript throughout. No plain JS files in `src/`.
 - Strict TypeScript config. Do not loosen the `tsconfig.json` settings.
 - Biome handles formatting and linting. Run `npm run lint:fix` before committing.
-- No runtime dependencies in `packages/sigilid`. If a proposed change requires one, that is a signal to reconsider the approach.
+- No runtime dependencies. If a proposed change requires one, that is a signal to reconsider the approach.
 - Prefer explicit over implicit. Named exports only; no default exports.
 - Keep functions small. If a function is doing more than one thing, split it.
 
 ## Testing expectations
 
 - All public API functions must have tests.
-- Tests live in `packages/sigilid/test/`, one file per entrypoint.
+- Tests live in `test/`, one file per entrypoint.
 - Use Vitest. Keep tests deterministic.
 - Do not write statistical collision tests that could flake under load.
 - Edge cases (empty strings, zero lengths, invalid alphabets) should be tested explicitly.
@@ -132,7 +134,7 @@ If you are not sure whether something belongs in `src/internal/` or as a public 
 - PR title should match the commit subject.
 - One logical change per PR.
 - Do not mix formatting changes with behavior changes.
-- Include a changeset file if your change affects the published package. Run `npx changeset` to create one.
+- No changeset workflow is used in this repository.
 
 ## Proposing new subpath exports
 
@@ -145,8 +147,8 @@ Open a GitHub issue first. Describe:
 
 New subpath exports also require updates to:
 
-- `packages/sigilid/package.json` (exports map)
-- `packages/sigilid/tsup.config.ts` (build entry)
+- `package.json` (exports map)
+- `tsup.config.ts` (build entry)
 - `README.md` (API docs)
 - `ARCHITECTURE.md` (if the structure changes)
 
