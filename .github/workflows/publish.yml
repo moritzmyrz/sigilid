@@ -68,7 +68,7 @@ jobs:
         run: npm run prebuild:native-addon
 
       - name: Upload prebuild artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-prebuilds-${{ matrix.os }}
           path: packages/native-addon/prebuilds/**
