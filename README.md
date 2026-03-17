@@ -31,6 +31,24 @@ const id = generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
 
 ---
 
+## Bundle size
+
+All sizes are brotli-compressed. Each subpath is a standalone module — importing
+one never pulls in the others.
+
+| Import               | Size   |
+| -------------------- | ------ |
+| `sigilid`            | ~348 B |
+| `sigilid/non-secure` | ~222 B |
+| `sigilid/prefix`     | ~496 B |
+| `sigilid/typed`      | ~486 B |
+| `sigilid/validate`   | ~366 B |
+| `sigilid/alphabet`   | ~381 B |
+
+Zero runtime dependencies. [Verified by size-limit on every PR.](link to workflow)
+
+---
+
 ## Install
 
 ```bash
@@ -55,8 +73,8 @@ Node 20+ required. Works in all modern runtimes that expose the Web Crypto API (
 import { generateId } from "sigilid";
 
 // Default: 21 URL-safe characters using crypto.getRandomValues
-generateId();      // "K7gkJ_q3vR2nL8xH5eM0w"
-generateId(12);    // "aX4_p9Qr2mNs"
+generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
+generateId(12); // "aX4_p9Qr2mNs"
 ```
 
 ---
@@ -71,14 +89,14 @@ Most apps eventually need more than a plain random string. They need prefixed ID
 
 ## When to use the root import vs subpath exports
 
-| If you need... | Import from... |
-|---|---|
-| A secure random URL-safe ID | `sigilid` |
+| If you need...                    | Import from...       |
+| --------------------------------- | -------------------- |
+| A secure random URL-safe ID       | `sigilid`            |
 | A non-crypto ID (tests, fixtures) | `sigilid/non-secure` |
-| Prefixed IDs like `usr_abc123` | `sigilid/prefix` |
-| Branded TypeScript ID types | `sigilid/typed` |
-| Validation at API boundaries | `sigilid/validate` |
-| IDs from a custom character set | `sigilid/alphabet` |
+| Prefixed IDs like `usr_abc123`    | `sigilid/prefix`     |
+| Branded TypeScript ID types       | `sigilid/typed`      |
+| Validation at API boundaries      | `sigilid/validate`   |
+| IDs from a custom character set   | `sigilid/alphabet`   |
 
 The root import has no dependency on any of the subpath modules. Importing only `sigilid` will not pull in prefix, validation, or alphabet code.
 
@@ -91,8 +109,8 @@ The root import has no dependency on any of the subpath modules. Importing only 
 ```ts
 import { generateId, DEFAULT_ALPHABET } from "sigilid";
 
-generateId();     // 21-character secure ID
-generateId(12);   // 12-character secure ID
+generateId(); // 21-character secure ID
+generateId(12); // 12-character secure ID
 
 console.log(DEFAULT_ALPHABET);
 // "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-"
@@ -107,8 +125,8 @@ console.log(DEFAULT_ALPHABET);
 ```ts
 import { generateNonSecureId } from "sigilid/non-secure";
 
-generateNonSecureId();    // 21-character ID using Math.random
-generateNonSecureId(8);   // 8-character ID
+generateNonSecureId(); // 21-character ID using Math.random
+generateNonSecureId(8); // 8-character ID
 ```
 
 **Not suitable for tokens, secrets, or session identifiers.** Use this only when you explicitly do not need cryptographic quality — for example, in test fixtures or non-sensitive local keys.
@@ -121,16 +139,17 @@ generateNonSecureId(8);   // 8-character ID
 import { generatePrefixedId, createPrefixedGenerator } from "sigilid/prefix";
 
 // One-off prefixed ID
-generatePrefixedId("usr");        // "usr_K7gkJ_q3vR2nL8xH5eM0w"
-generatePrefixedId("doc", 10);    // "doc_aX4p9Qr2mN"
+generatePrefixedId("usr"); // "usr_K7gkJ_q3vR2nL8xH5eM0w"
+generatePrefixedId("doc", 10); // "doc_aX4p9Qr2mN"
 
 // Factory for repeated use
 const userId = createPrefixedGenerator("usr");
-userId();  // "usr_K7gkJ_q3vR2nL8xH5eM0w"
-userId();  // "usr_Xp9mN2qL5vR8nK3eJ7cHw"
+userId(); // "usr_K7gkJ_q3vR2nL8xH5eM0w"
+userId(); // "usr_Xp9mN2qL5vR8nK3eJ7cHw"
 ```
 
 Prefix rules:
+
 - Must start with a letter
 - Must contain only letters and digits
 - Separator is always `_`
@@ -146,14 +165,16 @@ import { createTypedGenerator, castId } from "sigilid/typed";
 import type { IdOf, Brand } from "sigilid/typed";
 
 // Define typed generators for your entities
-const userId  = createTypedGenerator<"User">("usr");
-const postId  = createTypedGenerator<"Post">("post");
+const userId = createTypedGenerator<"User">("usr");
+const postId = createTypedGenerator<"Post">("post");
 
-const uid = userId();  // IdOf<"User"> = "usr_K7gkJ_q3vR2nL8xH5eM0w"
-const pid = postId();  // IdOf<"Post">
+const uid = userId(); // IdOf<"User"> = "usr_K7gkJ_q3vR2nL8xH5eM0w"
+const pid = postId(); // IdOf<"Post">
 
 // TypeScript prevents mixing them up
-function getUser(id: IdOf<"User">) { /* ... */ }
+function getUser(id: IdOf<"User">) {
+  /* ... */
+}
 getUser(uid); // ✓
 getUser(pid); // ✗ type error
 
@@ -176,8 +197,8 @@ import { isValidId, assertValidId, parseId } from "sigilid/validate";
 import type { ValidationOptions } from "sigilid/validate";
 
 // Boolean check
-isValidId("K7gkJ_q3vR2nL8xH5eM0w");              // true
-isValidId("bad id!");                              // false
+isValidId("K7gkJ_q3vR2nL8xH5eM0w"); // true
+isValidId("bad id!"); // false
 isValidId("usr_K7gkJ_q3vR2nL8xH5eM0w", { prefix: "usr" }); // true
 isValidId("abc123", { length: 6, alphabet: "abc123def456" }); // true
 
@@ -192,10 +213,10 @@ const id = parseId(rawInput, { prefix: "usr", length: 21 });
 
 `ValidationOptions`:
 
-| Option | Type | Description |
-|---|---|---|
-| `length` | `number` | Expected length of the ID (or ID portion after prefix) |
-| `prefix` | `string` | Expected prefix; separator `_` is assumed |
+| Option     | Type     | Description                                                           |
+| ---------- | -------- | --------------------------------------------------------------------- |
+| `length`   | `number` | Expected length of the ID (or ID portion after prefix)                |
+| `prefix`   | `string` | Expected prefix; separator `_` is assumed                             |
 | `alphabet` | `string` | Characters the ID must be drawn from (defaults to `DEFAULT_ALPHABET`) |
 
 ---
@@ -210,8 +231,8 @@ validateAlphabet("0123456789abcdef");
 
 // Create a bound generator
 const hex = createAlphabet("0123456789abcdef");
-hex.generate();     // 21-character hex string
-hex.generate(32);   // 32-character hex string
+hex.generate(); // 21-character hex string
+hex.generate(32); // 32-character hex string
 
 // Binary IDs (contrived, but works)
 const binary = createAlphabet("01");
@@ -219,6 +240,7 @@ binary.generate(16); // "1010011001110101"
 ```
 
 `createAlphabet` throws immediately if:
+
 - the alphabet has fewer than 2 characters
 - the alphabet has more than 256 characters
 - the alphabet contains duplicate characters
@@ -246,8 +268,12 @@ type UserId = IdOf<"User">;
 type PostId = IdOf<"Post">;
 
 // Your service functions now accept precise types
-async function deletePost(postId: PostId) { /* ... */ }
-async function getUser(userId: UserId) { /* ... */ }
+async function deletePost(postId: PostId) {
+  /* ... */
+}
+async function getUser(userId: UserId) {
+  /* ... */
+}
 
 const uid = newUserId();
 const pid = newPostId();
@@ -311,14 +337,14 @@ with the understanding that `Math.random` is not cryptographically safe.
 
 ## Package exports
 
-| Import | Entry file | Description |
-|---|---|---|
-| `sigilid` | `dist/index.js` | Secure root generator |
-| `sigilid/non-secure` | `dist/non-secure.js` | Math.random-based generator |
-| `sigilid/prefix` | `dist/prefix.js` | Prefixed ID helpers |
-| `sigilid/typed` | `dist/typed.js` | Branded types and typed generators |
-| `sigilid/validate` | `dist/validate.js` | Validation helpers |
-| `sigilid/alphabet` | `dist/alphabet.js` | Custom alphabet factory |
+| Import               | Entry file           | Description                        |
+| -------------------- | -------------------- | ---------------------------------- |
+| `sigilid`            | `dist/index.js`      | Secure root generator              |
+| `sigilid/non-secure` | `dist/non-secure.js` | Math.random-based generator        |
+| `sigilid/prefix`     | `dist/prefix.js`     | Prefixed ID helpers                |
+| `sigilid/typed`      | `dist/typed.js`      | Branded types and typed generators |
+| `sigilid/validate`   | `dist/validate.js`   | Validation helpers                 |
+| `sigilid/alphabet`   | `dist/alphabet.js`   | Custom alphabet factory            |
 
 All exports are available as ESM (`.js`) and CommonJS (`.cjs`) with TypeScript declarations (`.d.ts`).
 
