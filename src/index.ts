@@ -1,11 +1,8 @@
-import { generateFromAlphabet } from "./internal/alphabet.js";
 import { assertLength } from "./internal/assert.js";
 import { DEFAULT_ALPHABET } from "./internal/constants.js";
-import { randomBytes } from "./internal/random.js";
+import { generateDefault } from "./internal/generate.js";
 
 export { DEFAULT_ALPHABET };
-
-const DEFAULT_LENGTH = 21;
 
 /**
  * Generates a cryptographically secure random ID.
@@ -17,7 +14,7 @@ const DEFAULT_LENGTH = 21;
  * import { generateId } from "sigilid";
  * const id = generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
  */
-export function generateId(length: number = DEFAULT_LENGTH): string {
+export function generateId(length = 21): string {
   assertLength(length);
-  return generateFromAlphabet(DEFAULT_ALPHABET, length, randomBytes);
+  return generateDefault(length);
 }
