@@ -22,9 +22,8 @@ const DEFAULT_LENGTH = 21;
 export function generateNonSecureId(length: number = DEFAULT_LENGTH): string {
   assertLength(length);
   let result = "";
-  const size = DEFAULT_ALPHABET.length;
   for (let i = 0; i < length; i++) {
-    result += DEFAULT_ALPHABET[Math.floor(Math.random() * size)];
+    result += DEFAULT_ALPHABET[(Math.random() * 64) | 0] as string;
   }
   return result;
 }

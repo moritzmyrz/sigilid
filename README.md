@@ -38,12 +38,12 @@ one never pulls in the others.
 
 | Import               | Size   |
 | -------------------- | ------ |
-| `sigilid`            | ~263 B |
-| `sigilid/non-secure` | ~222 B |
-| `sigilid/prefix`     | ~375 B |
-| `sigilid/typed`      | ~387 B |
+| `sigilid`            | ~234 B |
+| `sigilid/non-secure` | ~214 B |
+| `sigilid/prefix`     | ~348 B |
+| `sigilid/typed`      | ~382 B |
 | `sigilid/validate`   | ~360 B |
-| `sigilid/alphabet`   | ~381 B |
+| `sigilid/alphabet`   | ~380 B |
 
 Zero runtime dependencies. [Verified by size-limit on every PR.](.github/workflows/size-limit.yml)
 
