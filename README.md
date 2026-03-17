@@ -38,10 +38,10 @@ one never pulls in the others.
 
 | Import               | Size   |
 | -------------------- | ------ |
-| `sigilid`            | ~234 B |
+| `sigilid`            | ~297 B |
 | `sigilid/non-secure` | ~214 B |
-| `sigilid/prefix`     | ~348 B |
-| `sigilid/typed`      | ~382 B |
+| `sigilid/prefix`     | ~385 B |
+| `sigilid/typed`      | ~398 B |
 | `sigilid/validate`   | ~360 B |
 | `sigilid/alphabet`   | ~380 B |
 
@@ -332,6 +332,18 @@ similar. The subpath ecosystem is where `sigilid` earns its place.
 
 If you are targeting an environment without Web Crypto, use `sigilid/non-secure`
 with the understanding that `Math.random` is not cryptographically safe.
+
+---
+
+## Benchmarking
+
+For local performance checks, run:
+
+```bash
+npm ci
+npm run build
+npm run bench
+```
 
 ---
 
