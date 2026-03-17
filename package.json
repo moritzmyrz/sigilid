@@ -1,7 +1,7 @@
 {
   "name": "sigilid",
   "version": "1.1.1",
-  "description": "A tiny, tree-shakeable ID toolkit for TypeScript apps. Secure core with optional subpath exports for prefixed IDs, typed IDs, validation, constants, and custom alphabets.",
+  "description": "A tiny, tree-shakeable ID toolkit for TypeScript apps. Secure core with optional subpath exports for prefixed IDs, typed IDs, validation, and custom alphabets.",
   "license": "MIT",
   "author": "moritzmyrz",
   "repository": {
@@ -58,10 +58,6 @@
       "types": "./dist/alphabet.d.ts",
       "import": "./dist/alphabet.js"
     },
-    "./constants": {
-      "types": "./dist/constants.d.ts",
-      "import": "./dist/constants.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -87,37 +83,32 @@
     {
       "path": "dist/index.js",
       "brotli": true,
-      "limit": "240 B"
+      "limit": "265 B"
     },
     {
       "path": "dist/non-secure.js",
       "brotli": true,
-      "limit": "225 B"
+      "limit": "245 B"
     },
     {
       "path": "dist/prefix.js",
       "brotli": true,
-      "limit": "370 B"
+      "limit": "385 B"
     },
     {
       "path": "dist/typed.js",
       "brotli": true,
-      "limit": "380 B"
+      "limit": "420 B"
     },
     {
       "path": "dist/validate.js",
       "brotli": true,
-      "limit": "370 B"
+      "limit": "395 B"
     },
     {
       "path": "dist/alphabet.js",
       "brotli": true,
-      "limit": "380 B"
-    },
-    {
-      "path": "dist/constants.js",
-      "brotli": true,
-      "limit": "120 B"
+      "limit": "415 B"
     }
   ],
   "devDependencies": {

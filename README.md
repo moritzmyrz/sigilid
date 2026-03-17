@@ -27,24 +27,23 @@ const id = generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
 - **ESM-only** — works in modern Node, edge runtimes, and all major bundlers
 - **Strong TypeScript support** — strict types, branded ID types, precise inference
 - **Predictable behavior** — explicit errors on invalid input, no silent failures
-- **One package, seven entrypoints** — `install sigilid`, then import only what you need
+- **One package, six entrypoints** — `install sigilid`, then import only what you need
 
 ---
 
 ## Bundle size
 
-All sizes are brotli-compressed. Entrypoints stay independent, and shared internals
-are chunked once when multiple subpaths are bundled together.
+All sizes are brotli-compressed. Each subpath is a standalone module — importing
+one never pulls in the others.
 
 | Import               | Size   |
 | -------------------- | ------ |
-| `sigilid`            | ~232 B |
-| `sigilid/non-secure` | ~217 B |
-| `sigilid/prefix`     | ~369 B |
-| `sigilid/typed`      | ~371 B |
+| `sigilid`            | ~234 B |
+| `sigilid/non-secure` | ~214 B |
+| `sigilid/prefix`     | ~348 B |
+| `sigilid/typed`      | ~382 B |
 | `sigilid/validate`   | ~360 B |
-| `sigilid/alphabet`   | ~373 B |
-| `sigilid/constants`  | ~86 B  |
+| `sigilid/alphabet`   | ~380 B |
 
 Zero runtime dependencies. [Verified by size-limit on every PR.](.github/workflows/size-limit.yml)
 
@@ -99,8 +98,7 @@ Most apps eventually need more than a plain random string. They need prefixed ID
 | Validation at API boundaries      | `sigilid/validate`   |
 | IDs from a custom character set   | `sigilid/alphabet`   |
 
-The root import stays focused on secure ID generation. Importing only `sigilid`
-will not pull in prefix, validation, or alphabet helpers.
+The root import has no dependency on any of the subpath modules. Importing only `sigilid` will not pull in prefix, validation, or alphabet code.
 
 ---
 
@@ -109,8 +107,7 @@ will not pull in prefix, validation, or alphabet helpers.
 ### `sigilid` — secure root
 
 ```ts
-import { generateId } from "sigilid";
-import { DEFAULT_ALPHABET } from "sigilid/constants";
+import { generateId, DEFAULT_ALPHABET } from "sigilid";
 
 generateId(); // 21-character secure ID
 generateId(12); // 12-character secure ID
@@ -120,9 +117,6 @@ console.log(DEFAULT_ALPHABET);
 ```
 
 `generateId` throws a `RangeError` if `length` is outside the range 1–255 or is not an integer.
-
-`DEFAULT_ALPHABET` is still re-exported from `sigilid` for backwards compatibility,
-but `sigilid/constants` is the preferred import path.
 
 ---
 
@@ -351,7 +345,6 @@ with the understanding that `Math.random` is not cryptographically safe.
 | `sigilid/typed`      | `dist/typed.js`      | Branded types and typed generators |
 | `sigilid/validate`   | `dist/validate.js`   | Validation helpers                 |
 | `sigilid/alphabet`   | `dist/alphabet.js`   | Custom alphabet factory            |
-| `sigilid/constants`  | `dist/constants.js`  | Shared constants                   |
 
 All exports are ESM (`.js`) with TypeScript declarations (`.d.ts`). Node.js 20+ required.
 

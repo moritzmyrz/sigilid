@@ -1,6 +1,5 @@
-import { assertLength } from "./internal/assert.js";
+import { assertLength, assertPrefix } from "./internal/assert.js";
 import { generateDefault } from "./internal/generate.js";
-import { createPrefixedGenerator } from "./prefix.js";
 
 /**
  * A nominal type brand. Attach this to a string type to create a distinct
@@ -56,11 +55,10 @@ export function createTypedGenerator<T extends string>(
   prefix?: string,
   length = 21,
 ): () => IdOf<T> {
-  if (prefix === undefined) {
-    assertLength(length);
-    return (): IdOf<T> => generateDefault(length) as IdOf<T>;
-  }
-
-  const prefixed = createPrefixedGenerator(prefix, length);
-  return (): IdOf<T> => prefixed() as IdOf<T>;
+  if (prefix !== undefined) assertPrefix(prefix);
+  assertLength(length);
+  return (): IdOf<T> => {
+    const raw = generateDefault(length);
+    return (prefix !== undefined ? `${prefix}_${raw}` : raw) as IdOf<T>;
+  };
 }
