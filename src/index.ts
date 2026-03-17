@@ -1,8 +1,8 @@
 import { assertLength } from "./internal/assert.js";
-import { DEFAULT_ALPHABET } from "./internal/constants.js";
 import { generateDefault } from "./internal/generate.js";
 
-export { DEFAULT_ALPHABET };
+/** @deprecated Import from "sigilid/constants" instead. */
+export { DEFAULT_ALPHABET } from "./constants.js";
 
 /**
  * Generates a cryptographically secure random ID.

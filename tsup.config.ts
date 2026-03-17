@@ -8,6 +8,7 @@ export default defineConfig({
     typed: "src/typed.ts",
     validate: "src/validate.ts",
     alphabet: "src/alphabet.ts",
+    constants: "src/constants.ts",
   },
   format: ["esm"],
   dts: true,
@@ -16,10 +17,9 @@ export default defineConfig({
   sourcemap: false,
   clean: true,
   minify: true,
-  splitting: false,
+  splitting: true,
   treeshake: true,
-  // Each entrypoint should be a standalone bundle with no cross-entrypoint
-  // imports at runtime. Internal helpers are inlined per-entrypoint.
+  // Allow shared chunks so duplicated internal helpers are emitted once.
   bundle: true,
   outDir: "dist",
 });
