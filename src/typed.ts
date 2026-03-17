@@ -51,7 +51,10 @@ export function castId<T extends string>(value: string): IdOf<T> {
  * const userId = createTypedGenerator<"User">("usr");
  * const id = userId(); // IdOf<"User"> = "usr_K7gkJ_q3vR2nL8xH5eM0w"
  */
-export function createTypedGenerator<T extends string>(prefix?: string, length = 21): () => IdOf<T> {
+export function createTypedGenerator<T extends string>(
+  prefix?: string,
+  length = 21,
+): () => IdOf<T> {
   if (prefix !== undefined) assertPrefix(prefix);
   assertLength(length);
   return (): IdOf<T> => {
