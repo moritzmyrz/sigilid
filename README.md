@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/moritzmyrz/sigilid/actions/workflows/ci.yml/badge.svg)](https://github.com/moritzmyrz/sigilid/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/sigilid)](https://www.npmjs.com/package/sigilid)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/sigilid)](https://bundlephobia.com/package/sigilid)
+[![install size](https://packagephobia.com/badge?p=sigilid)](https://packagephobia.com/result?p=sigilid)
 [![license](https://img.shields.io/npm/l/sigilid)](./LICENSE)
 
 `sigilid` gives you a secure, URL-safe ID generator as a zero-dependency ESM-first package. The root import is intentionally minimal — extra utilities like prefixed IDs, typed IDs, and validation live in subpath exports so your bundler only pulls in what you actually use.

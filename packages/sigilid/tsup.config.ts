@@ -9,9 +9,11 @@ export default defineConfig({
     validate: "src/validate.ts",
     alphabet: "src/alphabet.ts",
   },
-  format: ["esm", "cjs"],
+  format: ["esm"],
   dts: true,
-  sourcemap: true,
+  // Source maps inflate the npm tarball by ~66 kB for minimal benefit —
+  // minified maps aren't useful for debugging, and the source is on GitHub.
+  sourcemap: false,
   clean: true,
   minify: true,
   splitting: false,

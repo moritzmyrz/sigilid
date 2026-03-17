@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/moritzmyrz/sigilid/actions/workflows/ci.yml/badge.svg)](https://github.com/moritzmyrz/sigilid/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/sigilid)](https://www.npmjs.com/package/sigilid)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/sigilid)](https://bundlephobia.com/package/sigilid)
+[![install size](https://packagephobia.com/badge?p=sigilid)](https://packagephobia.com/result?p=sigilid)
 [![license](https://img.shields.io/npm/l/sigilid)](./LICENSE)
 
 Zero runtime dependencies. ESM-first with CJS compatibility. Strong TypeScript support.

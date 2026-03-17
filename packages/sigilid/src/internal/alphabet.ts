@@ -1,8 +1,9 @@
 export function validateAlphabetString(alphabet: string): void {
   if (typeof alphabet !== "string") throw new TypeError("alphabet must be a string");
-  if (alphabet.length < 2) throw new RangeError(`alphabet must have at least 2 characters`);
-  if (alphabet.length > 256) throw new RangeError(`alphabet must have at most 256 characters`);
-  if (new Set(alphabet).size !== alphabet.length) throw new TypeError("alphabet has duplicate characters");
+  if (alphabet.length < 2) throw new RangeError("alphabet must have at least 2 characters");
+  if (alphabet.length > 256) throw new RangeError("alphabet must have at most 256 characters");
+  if (new Set(alphabet).size !== alphabet.length)
+    throw new TypeError("alphabet has duplicate characters");
 }
 
 /**

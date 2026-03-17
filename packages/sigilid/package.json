@@ -33,39 +33,31 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.js"
     },
     "./non-secure": {
       "types": "./dist/non-secure.d.ts",
-      "import": "./dist/non-secure.js",
-      "require": "./dist/non-secure.cjs"
+      "import": "./dist/non-secure.js"
     },
     "./prefix": {
       "types": "./dist/prefix.d.ts",
-      "import": "./dist/prefix.js",
-      "require": "./dist/prefix.cjs"
+      "import": "./dist/prefix.js"
     },
     "./typed": {
       "types": "./dist/typed.d.ts",
-      "import": "./dist/typed.js",
-      "require": "./dist/typed.cjs"
+      "import": "./dist/typed.js"
     },
     "./validate": {
       "types": "./dist/validate.d.ts",
-      "import": "./dist/validate.js",
-      "require": "./dist/validate.cjs"
+      "import": "./dist/validate.js"
     },
     "./alphabet": {
       "types": "./dist/alphabet.d.ts",
-      "import": "./dist/alphabet.js",
-      "require": "./dist/alphabet.cjs"
+      "import": "./dist/alphabet.js"
     },
     "./package.json": "./package.json"
   },
