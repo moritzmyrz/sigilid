@@ -45,7 +45,7 @@ jobs:
       - name: Pack smoke test
         run: |
           mkdir -p /tmp/smoke-test
-          cd packages/sigilid && npm pack --pack-destination /tmp/smoke-test && cd -
+          npm pack --pack-destination /tmp/smoke-test
           cd /tmp/smoke-test
           npm init -y > /dev/null
           npm install ./sigilid-*.tgz > /dev/null

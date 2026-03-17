@@ -31,6 +31,6 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", "*.d.ts", ".changeset", "coverage"]
+    "ignore": ["node_modules", "dist", "*.d.ts", "coverage"]
   }
 }

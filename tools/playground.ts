@@ -1,11 +1,8 @@
 /**
  * Playground — local integration demo only, not published.
  *
- * Run with: npm run start (from apps/playground)
- * Or from repo root: cd apps/playground && npm run start
- *
- * This file imports from the built package. Run `npm run build` in
- * packages/sigilid first if you see resolution errors.
+ * Run with: npm run playground (from repo root)
+ * Requires a build first: npm run build
  */
 import { DEFAULT_ALPHABET, generateId } from "sigilid";
 import { createAlphabet, validateAlphabet } from "sigilid/alphabet";

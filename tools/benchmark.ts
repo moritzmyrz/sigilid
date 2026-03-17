@@ -6,8 +6,8 @@ import { generatePrefixedId } from "sigilid/prefix";
  * Local benchmarks only — not representative of production performance.
  * Results vary by hardware, Node version, and system load.
  *
- * Run with: npm run bench (from benchmarks/core)
- * Requires the sigilid package to be built first: npm run build
+ * Run with: npm run bench (from repo root)
+ * Requires a build first: npm run build
  */
 import { Bench } from "tinybench";
 
