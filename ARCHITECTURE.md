@@ -17,6 +17,7 @@ one test suite, and one release flow.
 ```
 src/
 ├── index.ts          ← root entrypoint, secure randomness only
+├── native.ts         ← optional Node-only loader for native addon
 ├── non-secure.ts     ← Math.random-based generation
 ├── prefix.ts         ← prefixed ID helpers
 ├── typed.ts          ← TypeScript brand types and typed generators
@@ -24,6 +25,7 @@ src/
 ├── alphabet.ts       ← custom alphabet factory
 └── internal/
     ├── assert.ts     ← shared input validation guards
+    ├── native.ts     ← Node runtime checks + native addon loading
     ├── random.ts     ← crypto.getRandomValues abstraction
     ├── alphabet.ts   ← alphabet string validation and character sampling
     └── validation.ts ← predicates shared by validate.ts
@@ -63,6 +65,17 @@ tsup builds all entrypoints in a single pass. Each entrypoint produces:
 
 The `exports` field in `package.json` maps each subpath to the correct ESM file
 and declaration file. The package is ESM-only.
+
+### Optional native companion package
+
+The `sigilid/native` subpath is intentionally separate from the default root path:
+
+- Root `sigilid` stays pure JS and browser-safe.
+- `sigilid/native` is Node-only and attempts to load `@sigilid/native-addon`.
+- The companion addon can compile/install independently without forcing native toolchains on default users.
+- The addon install flow is prebuild-friendly (`node-gyp-build` first, then source build fallback).
+
+If the addon is unavailable, `sigilid/native` throws a clear runtime error with install guidance.
 
 ## Design constraints for contributors
 

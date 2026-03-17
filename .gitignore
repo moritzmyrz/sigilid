@@ -4,6 +4,8 @@ node_modules/
 # Build outputs
 dist/
 *.tsbuildinfo
+packages/native-addon/build/
+*.node
 
 # Environment files
 .env

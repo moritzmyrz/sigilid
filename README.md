@@ -24,10 +24,12 @@ const id = generateId(); // "K7gkJ_q3vR2nL8xH5eM0w"
 - **URL-safe by default** — 64-character alphabet: `A-Z a-z 0-9 _ -`
 - **Tree-shakeable** — subpath exports mean your bundle only includes what you import
 - **Zero runtime dependencies** — no third-party code in production output
+- **Optional Node native fast path** — `sigilid/native` for Node-only throughput tuning
 - **ESM-only** — works in modern Node, edge runtimes, and all major bundlers
 - **Strong TypeScript support** — strict types, branded ID types, precise inference
 - **Predictable behavior** — explicit errors on invalid input, no silent failures
-- **One package, six entrypoints** — `install sigilid`, then import only what you need
+- **One package, seven entrypoints** — `install sigilid`, then import only what you need
+- **Companion native addon package** — only needed when using `sigilid/native`
 
 ---
 
@@ -64,6 +66,14 @@ yarn add sigilid
 ```
 
 Node 20+ required. Works in all modern runtimes that expose the Web Crypto API (`globalThis.crypto`).
+
+Optional native path:
+
+```bash
+npm install sigilid @sigilid/native-addon
+```
+
+Use `@sigilid/native-addon` only if you plan to import `sigilid/native`.
 
 ---
 
@@ -130,6 +140,30 @@ generateNonSecureId(8); // 8-character ID
 ```
 
 **Not suitable for tokens, secrets, or session identifiers.** Use this only when you explicitly do not need cryptographic quality — for example, in test fixtures or non-sensitive local keys.
+
+---
+
+### `sigilid/native` — optional Node-only fast path
+
+```ts
+import { generateDefault, generateId } from "sigilid/native";
+
+generateDefault(); // 21-character secure ID
+generateDefault(32); // 32-character secure ID
+
+// Alias that mirrors the root naming
+generateId(21);
+```
+
+- Node-only entrypoint.
+- Requires the companion addon package: `@sigilid/native-addon`.
+- Uses secure randomness and the same default alphabet as `sigilid`.
+- Throws a clear error if the addon is missing or the runtime is unsupported.
+- Addon install tries prebuilt binaries first, then falls back to local `node-gyp` build.
+- Publishing note: `sigilid` and `@sigilid/native-addon` are versioned/published separately.
+
+If you want the broadest compatibility (browser, edge, and Node) stick to the root
+`sigilid` import.
 
 ---
 
@@ -333,6 +367,9 @@ similar. The subpath ecosystem is where `sigilid` earns its place.
 If you are targeting an environment without Web Crypto, use `sigilid/non-secure`
 with the understanding that `Math.random` is not cryptographically safe.
 
+`sigilid/native` is a separate Node-only path. It depends on the companion addon
+package and is not intended for browsers or edge runtimes.
+
 ---
 
 ## Benchmarking
@@ -345,6 +382,19 @@ npm run build
 npm run bench
 ```
 
+Native vs JS benchmark:
+
+```bash
+npm run build:native-addon
+npm run bench:native
+```
+
+Build prebuilt binaries for publishing the addon:
+
+```bash
+npm run prebuild:native-addon
+```
+
 ---
 
 ## Package exports
@@ -352,6 +402,7 @@ npm run bench
 | Import               | Entry file           | Description                        |
 | -------------------- | -------------------- | ---------------------------------- |
 | `sigilid`            | `dist/index.js`      | Secure root generator              |
+| `sigilid/native`     | `dist/native.js`     | Optional Node-only native fast path |
 | `sigilid/non-secure` | `dist/non-secure.js` | Math.random-based generator        |
 | `sigilid/prefix`     | `dist/prefix.js`     | Prefixed ID helpers                |
 | `sigilid/typed`      | `dist/typed.js`      | Branded types and typed generators |

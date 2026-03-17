@@ -3,6 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   entry: {
     index: "src/index.ts",
+    native: "src/native.ts",
     "non-secure": "src/non-secure.ts",
     prefix: "src/prefix.ts",
     typed: "src/typed.ts",

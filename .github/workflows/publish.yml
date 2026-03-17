@@ -3,15 +3,15 @@ name: Publish
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
-  publish:
-    name: Publish to npm
+  verify:
+    name: Verify release build
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
-      id-token: write  # Required for npm provenance via OIDC
 
     steps:
       - name: Checkout
@@ -22,7 +22,6 @@ jobs:
         with:
           node-version: 20.x
           cache: npm
-          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: npm ci
@@ -39,7 +38,105 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish
+  prebuild-native-addon:
+    name: Prebuild native addon (${{ matrix.os }})
+    needs: verify
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build prebuilt addon
+        run: npm run prebuild:native-addon
+
+      - name: Upload prebuild artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-prebuilds-${{ matrix.os }}
+          path: packages/native-addon/prebuilds/**
+          if-no-files-found: error
+
+  publish-native-addon:
+    name: Publish @sigilid/native-addon
+    needs: prebuild-native-addon
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download prebuild artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: native-prebuilds-*
+          path: packages/native-addon/prebuilds
+          merge-multiple: true
+
+      - name: Publish native addon
+        working-directory: packages/native-addon
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-root:
+    name: Publish sigilid
+    needs: publish-native-addon
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish root package
         run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
