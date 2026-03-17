@@ -11,7 +11,7 @@ export function isValidIdValue(value: string, options: ValidationOptions = {}): 
   if (typeof value !== "string" || value.length === 0) return false;
 
   if (options.alphabet !== undefined && options.alphabet.length === 0) {
-    throw new TypeError("ValidationOptions.alphabet must not be empty");
+    throw new TypeError("alphabet option must not be empty");
   }
 
   let idPart = value;

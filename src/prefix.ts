@@ -1,10 +1,5 @@
-import { generateFromAlphabet } from "./internal/alphabet.js";
 import { assertLength, assertPrefix } from "./internal/assert.js";
-import { DEFAULT_ALPHABET } from "./internal/constants.js";
-import { randomBytes } from "./internal/random.js";
-
-const DEFAULT_LENGTH = 21;
-const SEPARATOR = "_";
+import { generateDefault } from "./internal/generate.js";
 
 /**
  * Generates a prefixed, cryptographically secure ID.
@@ -19,11 +14,10 @@ const SEPARATOR = "_";
  * import { generatePrefixedId } from "sigilid/prefix";
  * const userId = generatePrefixedId("usr"); // "usr_K7gkJ_q3vR2nL8xH5eM0w"
  */
-export function generatePrefixedId(prefix: string, length: number = DEFAULT_LENGTH): string {
+export function generatePrefixedId(prefix: string, length = 21): string {
   assertPrefix(prefix);
   assertLength(length);
-  const id = generateFromAlphabet(DEFAULT_ALPHABET, length, randomBytes);
-  return `${prefix}${SEPARATOR}${id}`;
+  return `${prefix}_${generateDefault(length)}`;
 }
 
 /**
@@ -42,15 +36,9 @@ export function generatePrefixedId(prefix: string, length: number = DEFAULT_LENG
  * userId(); // "usr_K7gkJ_q3vR2nL8xH5eM0w"
  * userId(); // "usr_Xp9mN2qL5vR8nK3eJ7cHw"
  */
-export function createPrefixedGenerator(
-  prefix: string,
-  length: number = DEFAULT_LENGTH,
-): () => string {
+export function createPrefixedGenerator(prefix: string, length = 21): () => string {
   // Validate eagerly so callers get errors at factory creation, not later.
   assertPrefix(prefix);
   assertLength(length);
-  return () => {
-    const id = generateFromAlphabet(DEFAULT_ALPHABET, length, randomBytes);
-    return `${prefix}${SEPARATOR}${id}`;
-  };
+  return () => `${prefix}_${generateDefault(length)}`;
 }

@@ -1,10 +1,5 @@
-import { generateFromAlphabet } from "./internal/alphabet.js";
 import { assertLength, assertPrefix } from "./internal/assert.js";
-import { DEFAULT_ALPHABET } from "./internal/constants.js";
-import { randomBytes } from "./internal/random.js";
-
-const DEFAULT_LENGTH = 21;
-const SEPARATOR = "_";
+import { generateDefault } from "./internal/generate.js";
 
 /**
  * A nominal type brand. Attach this to a string type to create a distinct
@@ -58,14 +53,12 @@ export function castId<T extends string>(value: string): IdOf<T> {
  */
 export function createTypedGenerator<T extends string>(
   prefix?: string,
-  length: number = DEFAULT_LENGTH,
+  length = 21,
 ): () => IdOf<T> {
   if (prefix !== undefined) assertPrefix(prefix);
   assertLength(length);
-
   return (): IdOf<T> => {
-    const raw = generateFromAlphabet(DEFAULT_ALPHABET, length, randomBytes);
-    const value = prefix !== undefined ? `${prefix}${SEPARATOR}${raw}` : raw;
-    return value as IdOf<T>;
+    const raw = generateDefault(length);
+    return (prefix !== undefined ? `${prefix}_${raw}` : raw) as IdOf<T>;
   };
 }

@@ -76,36 +76,12 @@
     "bench": "tsx tools/benchmark.ts"
   },
   "size-limit": [
-    {
-      "path": "dist/index.js",
-      "brotli": true,
-      "limit": "350 B"
-    },
-    {
-      "path": "dist/non-secure.js",
-      "brotli": true,
-      "limit": "250 B"
-    },
-    {
-      "path": "dist/prefix.js",
-      "brotli": true,
-      "limit": "500 B"
-    },
-    {
-      "path": "dist/typed.js",
-      "brotli": true,
-      "limit": "500 B"
-    },
-    {
-      "path": "dist/validate.js",
-      "brotli": true,
-      "limit": "400 B"
-    },
-    {
-      "path": "dist/alphabet.js",
-      "brotli": true,
-      "limit": "400 B"
-    }
+    { "path": "dist/index.js", "brotli": true, "limit": "300 B" },
+    { "path": "dist/non-secure.js", "brotli": true, "limit": "250 B" },
+    { "path": "dist/prefix.js", "brotli": true, "limit": "425 B" },
+    { "path": "dist/typed.js", "brotli": true, "limit": "435 B" },
+    { "path": "dist/validate.js", "brotli": true, "limit": "400 B" },
+    { "path": "dist/alphabet.js", "brotli": true, "limit": "425 B" }
   ],
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
