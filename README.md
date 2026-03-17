@@ -335,45 +335,15 @@ with the understanding that `Math.random` is not cryptographically safe.
 
 ---
 
-## Benchmarking and comparisons
+## Benchmarking
 
-There are two benchmark entrypoints:
-
-- `npm run bench` for internal `sigilid` functions only
-- `npm run bench:compare` for cross-library comparisons (`sigilid`, `nanoid`,
-  `uuid.v4`, `crypto.randomUUID`, `uid/secure`, `shortid`)
-
-The compare benchmark reports:
-
-- `ops/sec` for raw call throughput
-- `chars/sec` to normalize for libraries that produce longer/shorter IDs
-- latency stats and sample count
-
-### Local run
+For local performance checks, run:
 
 ```bash
 npm ci
 npm run build
-npm run bench:compare
+npm run bench
 ```
-
-Optional tuning:
-
-```bash
-BENCH_SECONDS=5 BENCH_WARMUP_SECONDS=2 npm run bench:compare
-```
-
-Results are written to `bench-results/compare-*.json`.
-
-### Reproducible run with fixed resources (Docker)
-
-```bash
-CPU_LIMIT=2 MEM_LIMIT=1g npm run bench:compare:docker
-```
-
-This pins each run to the same container CPU and memory budget so comparisons
-between runs are less noisy. For better consistency, run multiple passes and
-compare medians.
 
 ---
 
