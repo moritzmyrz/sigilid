@@ -30,3 +30,4 @@ coverage/
 # Temp files
 *.tmp
 .cache/
+smoke
