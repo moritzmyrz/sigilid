@@ -123,7 +123,7 @@
   "devDependencies": {
     "@sigilid/native-addon": "file:packages/native-addon",
     "@types/node": "^24.5.2",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.4.8",
     "@size-limit/preset-small-lib": "^12.0.1",
     "@vitest/coverage-v8": "^3.0.7",
     "size-limit": "^12.0.1",
